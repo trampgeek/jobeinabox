@@ -5,7 +5,7 @@ The [Moodle CodeRunner question type plugin](https://moodle.org/plugins/qtype_co
 If you're looking for the ready to run Docker image itself, you'll find it [in the DockerHub repo](https://hub.docker.com/r/trampgeek/jobeinabox/). This GitHub repository is relevant only if you wish to build your own
 customised Docker image.
 
-To build a docker image, make sure you have docker and docker-comose installed. Then pull this repo, cd into the jobeinabox directory and edit docker-compose.yml to suit your own needs. Then simply build the image with the command
+To build a docker image, make sure you have docker and docker-comose installed. Then pull this repo, cd into the jobeinabox directory and edit Dockerfile to suit your own needs. Then simply build the image with the command
 
     docker-compose build
     
