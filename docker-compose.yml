@@ -1,0 +1,7 @@
+version: '3'
+services:
+  webserver:
+    build: .
+    ports:
+    - "4000:80"
+
