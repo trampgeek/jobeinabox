@@ -9,4 +9,4 @@ To build a docker image, make sure you have docker and docker-comose installed. 
 
     docker-compose build
     
-Instructions for using the image are on [DockerHub]((https://hub.docker.com/r/trampgeek/jobeinabox/)
+Instructions for using the image are on [DockerHub](https://hub.docker.com/r/trampgeek/jobeinabox/)
