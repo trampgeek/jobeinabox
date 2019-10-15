@@ -2,6 +2,7 @@
 # With thanks to David Bowes (d.h.bowes@herts.ac.uk) who did all the hard work
 # on this originally.
 # Version 2.1, 31 January 2019.
+# Version 2.2, 15 October 2019 added cleaning && logging.
 
 FROM ubuntu:18.04
 
