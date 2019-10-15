@@ -14,7 +14,12 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone &
       apache2 php libapache2-mod-php php-cli php-mbstring octave nodejs \
       build-essential python3 php-cli fp-compiler \
       openjdk-11-jdk python3-pip pylint3 sqlite3 git acl unzip sudo && \
-    pylint3 --reports=no --score=n --generate-rcfile > /etc/pylintrc
+    pylint3 --reports=no --score=n --generate-rcfile > /etc/pylintrc && \
+    apt-get -y autoremove && \
+    apt-get -y autoclean && \
+    apt-get -y clean && \
+    ln -sf /proc/self/fd/1 /var/log/apache2/access.log && \
+    ln -sf /proc/self/fd/1 /var/log/apache2/error.log
 
 # Manually set up the apache environment variables
 ENV APACHE_RUN_USER www-data
@@ -28,7 +33,7 @@ ENV LANG C.UTF-8
 RUN cd /var/www/html && sudo git clone https://github.com/trampgeek/jobe.git && \
     cd /var/www/html/jobe && apache2ctl start && ./install
 
-# Expose apache.
+# Expose apache
 EXPOSE 80
 
 RUN echo "root:$ROOTPASS" | chpasswd && \
