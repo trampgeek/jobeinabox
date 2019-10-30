@@ -15,12 +15,17 @@ ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_PID_FILE /var/run/apache2.pid
 ENV LANG C.UTF-8
 
+# Copy apache virtual host file for later use
+COPY 000-jobe.conf /
+
 # Set timezone
 # Install extra packages
 # Redirect apache logs to stdout
 # Configure apache
+# Configure php
 # Setup root password
-# Get and install jobe and clean up
+# Get and install jobe
+# Clean up
 RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
     echo "$TZ" > /etc/timezone && \
     apt-get update && \
@@ -30,7 +35,8 @@ RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
       libapache2-mod-php \
       php-cli \
       php-mbstring \
-      octave nodejs \
+      octave \
+      nodejs \
       build-essential \
       python3 \
       php-cli \
@@ -48,8 +54,14 @@ RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
     ln -sf /proc/self/fd/1 /var/log/apache2/error.log && \
     sed -i -e "s/export LANG=C/export LANG=$LANG/" /etc/apache2/envvars && \
     sed -i -e "1 i ServerName localhost" /etc/apache2/apache2.conf && \
+    sed -i 's/ServerTokens\ OS/ServerTokens \Prod/g' /etc/apache2/conf-enabled/security.conf && \
+    sed -i 's/ServerSignature\ On/ServerSignature \Off/g' /etc/apache2/conf-enabled/security.conf && \
+    rm /etc/apache2/sites-enabled/000-default.conf && \
+    mv /000-jobe.conf /etc/apache2/sites-enabled/ && \
+    sed -i 's/expose_php\ =\ On/expose_php\ =\ Off/g' /etc/php/7.2/cli/php.ini && \
     mkdir -p /var/crash && \
     echo "root:$ROOTPASS" | chpasswd && \
+    echo "Jobe" > /var/www/html/index.html && \
     git clone https://github.com/trampgeek/jobe.git /var/www/html/jobe && \
     apache2ctl start && \
     cd /var/www/html/jobe && ./install && \
