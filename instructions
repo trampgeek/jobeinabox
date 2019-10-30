@@ -1,3 +1,0 @@
-# To build your own JobeInABox, edit docker-compose.yml to your own needs.
-# Then build with the command
-docker-compose build
