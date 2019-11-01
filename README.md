@@ -16,4 +16,8 @@ Or with a different timezone:
 
     docker build . -t test/jobeinabox --build-arg TZ="Europe/Amsterdam"
 
+And with a different root password, and please do since the source is open:
+
+    docker build . -t test/jobeinabox --build-arg TZ="Europe/Amsterdam" --build-arg ROOTPASS="complicated_password"
+
 Instructions for using the image are on [DockerHub](https://hub.docker.com/r/trampgeek/jobeinabox/)
