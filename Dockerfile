@@ -29,26 +29,26 @@ COPY 000-jobe.conf /
 RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
     echo "$TZ" > /etc/timezone && \
     apt-get update && \
-    apt-get --no-install-recommends install -yq tzdata \
+    apt-get --no-install-recommends install -yq acl \
       apache2 \
-      php \
+      build-essential \
+      fp-compiler \
+      git \
       libapache2-mod-php \
+      nodejs \
+      octave \
+      openjdk-11-jdk \
+      php \
+      php-cli \
       php-cli \
       php-mbstring \
-      octave \
-      nodejs \
-      build-essential \
-      python3 \
-      php-cli \
-      fp-compiler \
-      openjdk-11-jdk \
-      python3-pip \
       pylint3 \
+      python3 \
+      python3-pip \
       sqlite3 \
-      git \
-      acl \
-      unzip \
-      sudo && \
+      sudo \
+      tzdata \
+      unzip && \
     pylint3 --reports=no --score=n --generate-rcfile > /etc/pylintrc && \
     ln -sf /proc/self/fd/1 /var/log/apache2/access.log && \
     ln -sf /proc/self/fd/1 /var/log/apache2/error.log && \
@@ -66,9 +66,9 @@ RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
     apache2ctl start && \
     cd /var/www/html/jobe && ./install && \
     chown -R www-data:www-data /var/www/html && \
-    apt-get -y autoremove && \
-    apt-get -y autoclean && \
-    apt-get -y clean
+    apt-get -y autoremove --purge && \
+    apt-get -y clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Expose apache
 EXPOSE 80
