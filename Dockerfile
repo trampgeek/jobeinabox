@@ -17,6 +17,8 @@ ENV LANG C.UTF-8
 
 # Copy apache virtual host file for later use
 COPY 000-jobe.conf /
+# Copy test script
+COPY container-test.sh /
 
 # Set timezone
 # Install extra packages

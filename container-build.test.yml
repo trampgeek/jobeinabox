@@ -1,3 +1,0 @@
-sut:
-  build: .
-  command: python3 /var/www/html/jobe/testsubmit.py || exit 1
