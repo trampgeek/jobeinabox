@@ -1,7 +1,12 @@
 version: '3'
 services:
   webserver:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        TZ: Pacific/Auckland
+        ROOTPASS: jobeisfab
     ports:
-    - "4000:80"
+       - "4000:80"
 
