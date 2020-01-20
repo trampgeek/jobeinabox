@@ -44,6 +44,12 @@ And with a different root password (please do since the source is open):
 
     docker-compose build --build-arg --build-arg TZ="Europe/Amsterdam" --build-arg ROOTPASS="complicated_password"
 
+You can then run your newly-built image with the command
+
+    docker-compose up
+
+which, as above, will give you a jobe server running on port 4000.
+
 
 
 
