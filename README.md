@@ -39,7 +39,7 @@ Note that while the container in which this Jobe runs should be secure, the cont
 ## Building your own image locally (strongly recommended)
 
 If you wish to
-build your own version locally, make sure you have docker and docker-compose installed.
+build your own version locally, make sure you have docker-compose installed.
 Then pull this repo from github, cd into the jobeinabox directory and edit docker-compose.yml to suit your own needs. In particular you
 should change at least the following two lines:
 
