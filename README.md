@@ -6,7 +6,7 @@ Thanks to David Bowes who set up the first version of this.
 
 ## Using jobeinabox
 
-To run the pre-built docker hub image:
+To run the pre-built docker hub image (but please read the warnings below, first):
 
     sudo docker run -d -p 4000:80 --name jobe trampgeek/jobeinabox:latest
 
@@ -33,37 +33,31 @@ To stop the running server, enter the command
 
     docker stop jobe
 
-Note that while the container in which this Jobe runs should be secure, the container's network is currently just bridged across to the host's network. This means that Jobe can be accessed from anywhere that can access the host and can access any URI that the host can access. Firewalling of the host is essential for production use.
+### Warnings:
+
+1. The pre-built image has a publicly-visible root password. Use it only
+   for in-house or testing purposes. For production use you should build your
+   own image with a different password and timezone, as in the next section.
+
+1. Note that while the container in which this Jobe runs should be secure, the container's network is currently just bridged across to the host's network. This means that Jobe can be accessed from anywhere that can access the host and can access any URI that the host can access. Firewalling of the host is essential for production use.
 
 
 ## Building your own image locally (strongly recommended)
 
-If you wish to
-build your own version locally, make sure you have docker-compose installed.
-Then pull this repo from github, cd into the jobeinabox directory and edit docker-compose.yml to suit your own needs. In particular you
-should change at least the following two lines:
+For production use you should build your own image, configured with an
+unguessable password and the local timezone, as follows.
 
-    TZ: Pacific/Auckland
-    ROOTPASS: jobeisfab
+Pull this repo from github, cd into the jobeinabox directory and type a command
+of the form
 
-to set the timezone to your local timezone and the root password to something
-unguessable.
-
-Then simply build the image with the command
-
-    docker-compose build
+    docker build . -t my/jobeinabox --build-arg TZ="Europe/Amsterdam" --build-arg ROOTPASS="complicated_password"
 
 You can then run your newly-built image with the command
 
-    docker-compose up -d
+    sudo docker run -d -p 4000:80 --name jobe my/jobeinabox
 
-which, as above, will give you a jobe server running on port 4000.
+This will give you a jobe server running on port 4000, which can then be
+tested locally and used by Moodle as in the previous section.
 
-The container can be stopped with the command
-
-    docker-compose stop
-
-
-
-
-
+The warning about networking in the previous section still applies to this
+locally-build image.
