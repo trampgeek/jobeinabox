@@ -1,5 +1,10 @@
 # JobeInABox
 
+![Docker Stars](https://img.shields.io/docker/stars/trampgeek/jobeinabox.svg)
+![Docker Pulls](https://img.shields.io/docker/pulls/trampgeek/jobeinabox.svg)
+![Docker Automated](https://img.shields.io/docker/cloud/automated/trampgeek/jobeinabox.svg)
+![Docker Build](https://img.shields.io/docker/cloud/build/trampgeek/jobeinabox.svg)
+
 The [Moodle CodeRunner question type plugin](https://moodle.org/plugins/qtype_coderunner) requires a [Jobe server](https://github.com/trampgeek) on which to run student-submitted jobs. [JobeInABox](https://hub.docker.com/r/trampgeek/jobeinabox/) is a container image that provides a basic Jobe server that runs all the standard languages but does not have a mysql server installed so cannot use API-key access. For normal use, that's not a problem - API-key access is relevant only to Jobe servers delivering services to multiple clients.
 
 If you're looking for the ready to run container image itself, you'll find it [in the Docker Hub repo](https://hub.docker.com/r/trampgeek/jobeinabox/). This GitHub repository is relevant only if you wish to build your own customised container image.
