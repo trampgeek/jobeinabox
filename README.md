@@ -7,11 +7,9 @@
 
 The [Moodle CodeRunner question type plugin](https://moodle.org/plugins/qtype_coderunner) requires a [Jobe server](https://github.com/trampgeek) on which to run student-submitted jobs. [JobeInABox](https://hub.docker.com/r/trampgeek/jobeinabox/) is a container image that provides a basic Jobe server that runs all the standard languages but does not have a mysql server installed so cannot use API-key access. For normal use, that's not a problem - API-key access is relevant only to Jobe servers delivering services to multiple clients.
 
-If you're looking for the ready to run container image itself, you'll find it [in the Docker Hub repo](https://hub.docker.com/r/trampgeek/jobeinabox/). This GitHub repository is relevant only if you wish to build your own customised container image.
+## Building and running your own image locally (strongly recommended)
 
-## Building your own image locally (strongly recommended)
-
-There are several ways to build and running a JobeInABox container, for example:
+There are several ways to build and run a JobeInABox container, for example:
 
 * [Podman](https://developers.redhat.com/blog/2019/02/21/podman-and-buildah-for-docker-users/)
 * [Buildah](https://www.redhat.com/sysadmin/building-buildah)
@@ -21,7 +19,7 @@ For production use you should build your own image, configured with an
 unguessable password and the local timezone. In this example we use
 Docker as follows:
 
-Pull this repo from Github, cd into the jobeinabox directory and type a command
+Pull [this repo from Github](https://github.com/trampgeek/jobeinabox), cd into the jobeinabox directory and type a command
 of the form
 
     sudo docker build . -t my/jobeinabox --build-arg TZ="Europe/Amsterdam" --build-arg ROOTPASS="complicated_password"
@@ -31,18 +29,30 @@ You can then run your newly-built image with the command
     sudo docker run -d -p 4000:80 --name jobe my/jobeinabox
 
 This will give you a jobe server running on port 4000, which can then be
-tested locally and used by Moodle as in the next section.
+tested locally and used by Moodle as explained in the section "Using jobeinabox" below.
 
-The warning about networking in the next section still applies to this
-locally-build image.
+## Using the pre-built jobeinabox image on docker hub
 
-## Using jobeinabox
-
-To run the pre-built Docker Hub image (but please read the warnings below, first):
+To run the pre-built Docker Hub image, just enter the command:
 
     sudo docker run -d -p 4000:80 --name jobe trampgeek/jobeinabox:latest
 
-You can check it's running OK by browsing to
+This will give you a jobe server running on port 4000, which can then be
+tested locally and used by Moodle as explained in the section "Using jobeinabox" below.
+
+### Warnings:
+
+1.  The pre-built image has a publicly-visible root password. Use it only
+    for in-house or testing purposes. For production use you should build your
+    own image with a different password and timezone, as in the next section.
+    
+1.  The image is over 1 GB, so may take a long time to start the first
+    time, depending on your download bandwidth.
+    
+## Using jobeinabox
+
+Having started a jobeinabox container by either of the above methods, you
+can check it's running OK by browsing to
 
      http://[host_running_docker]:4000/jobe/index.php/restapi/languages
 
@@ -72,14 +82,7 @@ To check if there is anything left, enter the command
 
     sudo docker ps -a
 
-### Warnings:
-
-1.  Be warned that it's over 1 GB, so may take a long time to start the first
-    time, depending on your download bandwidth.
-
-1.  The pre-built image has a publicly-visible root password. Use it only
-    for in-house or testing purposes. For production use you should build your
-    own image with a different password and timezone, as in the next section.
+## Notes on security:
 
 1.  Note that while the container in which this Jobe runs should be secure, the
     container's network is currently just bridged across to the host's network.
@@ -87,5 +90,5 @@ To check if there is anything left, enter the command
     and can access any URI that the host can access. Firewalling of the host is
     essential for production use.
 
-1.  Rebuild the container regularly, this ensures that the container is running
+1.  Rebuild the container regularly to ensures that it is running
     with the latest jobe version and security updates.
