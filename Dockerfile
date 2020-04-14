@@ -44,14 +44,15 @@ RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
       php-cli \
       php-cli \
       php-mbstring \
-      pylint3 \
       python3 \
       python3-pip \
+      python3-setuptools \
       sqlite3 \
       sudo \
       tzdata \
       unzip && \
-    pylint3 --reports=no --score=n --generate-rcfile > /etc/pylintrc && \
+    python3 -m pip install pylint && \
+    pylint --reports=no --score=n --generate-rcfile > /etc/pylintrc && \
     ln -sf /proc/self/fd/1 /var/log/apache2/access.log && \
     ln -sf /proc/self/fd/1 /var/log/apache2/error.log && \
     sed -i -e "s/export LANG=C/export LANG=$LANG/" /etc/apache2/envvars && \
