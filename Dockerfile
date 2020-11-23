@@ -78,7 +78,7 @@ EXPOSE 80
 
 # Healthcheck, minimaltest.py should complete within 2 seconds
 HEALTHCHECK --interval=5m --timeout=2s \
-    CMD python3 /var/www/html/jobe/minimaltest.py || exit 1
+    CMD /usr/bin/python3 /var/www/html/jobe/minimaltest.py || exit 1
 
 # Start apache
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
