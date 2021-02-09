@@ -2,7 +2,7 @@
 # With thanks to David Bowes (d.h.bowes@herts.ac.uk) who did all the hard work
 # on this originally.
 
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 LABEL maintainers="richard.lobb@canterbury.ac.nz,j.hoedjes@hva.nl"
 ARG TZ=Pacific/Auckland
@@ -61,7 +61,7 @@ RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
     sed -i 's/ServerSignature\ On/ServerSignature \Off/g' /etc/apache2/conf-enabled/security.conf && \
     rm /etc/apache2/sites-enabled/000-default.conf && \
     mv /000-jobe.conf /etc/apache2/sites-enabled/ && \
-    sed -i 's/expose_php\ =\ On/expose_php\ =\ Off/g' /etc/php/7.2/cli/php.ini && \
+    sed -i 's/expose_php\ =\ On/expose_php\ =\ Off/g' /etc/php/7.4/cli/php.ini && \
     mkdir -p /var/crash && \
     echo "root:$ROOTPASS" | chpasswd && \
     echo "Jobe" > /var/www/html/index.html && \
