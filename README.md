@@ -12,17 +12,14 @@ The [Moodle CodeRunner question type plugin](https://moodle.org/plugins/qtype_co
 There are several ways to build and run a JobeInABox container, for example:
 
 * [Podman](https://developers.redhat.com/blog/2019/02/21/podman-and-buildah-for-docker-users/)
-* [Buildah](https://www.redhat.com/sysadmin/building-buildah)
-* Docker
+* [Docker](https://docs.docker.com/)
 
-For production use you should build your own image, configured with an
-unguessable password and the local timezone. In this example we use
-Docker as follows:
+For production use you should build your own image, the local timezone. In this example we use Docker as follows:
 
 Pull [this repo from Github](https://github.com/trampgeek/jobeinabox), cd into the jobeinabox directory and type a command
 of the form
 
-    sudo docker build . -t my/jobeinabox --build-arg TZ="Europe/Amsterdam" --build-arg ROOTPASS="complicated_password"
+    sudo docker build . -t my/jobeinabox --build-arg TZ="Europe/Amsterdam"
 
 You can then run your newly-built image with the command
 
@@ -42,13 +39,9 @@ tested locally and used by Moodle as explained in the section "Using jobeinabox"
 
 ### Warnings:
 
-1.  The pre-built image has a publicly-visible root password. Use it only
-    for in-house or testing purposes. For production use you should build your
-    own image with a different password and timezone, as in the next section.
-    
 1.  The image is over 1 GB, so may take a long time to start the first
     time, depending on your download bandwidth.
-    
+
 ## Using jobeinabox
 
 Having started a jobeinabox container by either of the above methods, you
