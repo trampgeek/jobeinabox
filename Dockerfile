@@ -1,5 +1,5 @@
 # Jobe-in-a-box: a Dockerised Jobe server (see https://github.com/trampgeek/jobe)
-# With thanks to David Bowes (d.h.bowes@herts.ac.uk) who did all the hard work
+# With thanks to David Bowes (d.h.bowes@lancaster.ac.uk) who did all the hard work
 # on this originally.
 
 FROM docker.io/ubuntu:20.04
