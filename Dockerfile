@@ -45,9 +45,8 @@ RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
         libapache2-mod-php \
         nodejs \
         octave \
-        openjdk-14-jdk \
+        openjdk-16-jdk \
         php \
-        php-cli \
         php-cli \
         php-mbstring \
         python3 \
