@@ -2,7 +2,7 @@
 # With thanks to David Bowes (d.h.bowes@lancaster.ac.uk) who did all the hard work
 # on this originally.
 
-FROM docker.io/ubuntu:20.04
+FROM docker.io/ubuntu:22.04
 
 # https://github.com/opencontainers/image-spec/blob/master/annotations.md
 LABEL \
@@ -45,9 +45,8 @@ RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
         libapache2-mod-php \
         nodejs \
         octave \
-        openjdk-14-jdk \
+        openjdk-18-jdk \
         php \
-        php-cli \
         php-cli \
         php-mbstring \
         python3 \
@@ -67,7 +66,6 @@ RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
     sed -i 's/ServerSignature\ On/ServerSignature \Off/g' /etc/apache2/conf-enabled/security.conf && \
     rm /etc/apache2/sites-enabled/000-default.conf && \
     mv /000-jobe.conf /etc/apache2/sites-enabled/ && \
-    sed -i 's/expose_php\ =\ On/expose_php\ =\ Off/g' /etc/php/7.4/cli/php.ini && \
     mkdir -p /var/crash && \
     chmod 777 /var/crash && \
     echo '<!DOCTYPE html><html lang="en"><title>Jobe</title><h1>Jobe</h1></html>' > /var/www/html/index.html && \
