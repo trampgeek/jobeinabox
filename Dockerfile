@@ -72,7 +72,7 @@ RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
     git clone https://github.com/trampgeek/jobe.git /var/www/html/jobe && \
     apache2ctl start && \
     cd /var/www/html/jobe && \
-    /usr/bin/python3 /var/www/html/jobe/install && \
+    /usr/bin/python3 /var/www/html/jobe/install --max_uid=500 && \
     chown -R ${APACHE_RUN_USER}:${APACHE_RUN_GROUP} /var/www/html && \
     apt-get -y autoremove --purge && \
     apt-get -y clean && \
