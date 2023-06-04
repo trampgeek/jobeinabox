@@ -7,6 +7,9 @@
 
 The [Moodle CodeRunner question type plugin](https://moodle.org/plugins/qtype_coderunner) requires a [Jobe server](https://github.com/trampgeek) on which to run student-submitted jobs. [JobeInABox](https://hub.docker.com/r/trampgeek/jobeinabox/) is a container image that provides a basic Jobe server that runs all the standard languages but does not have a mysql server installed so cannot use API-key access. For normal use, that's not a problem - API-key access is relevant only to Jobe servers delivering services to multiple clients.
 
+*NOTE: for security and performance reasons it is strongly recommended to run Jobe on a 
+dedicated standalone server, even when running it in a container.*
+
 ## Building and running your own image locally (strongly recommended)
 
 There are several ways to build and run a JobeInABox container, for example:
