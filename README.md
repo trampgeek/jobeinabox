@@ -37,6 +37,31 @@ To run the pre-built Docker Hub image, just enter the command:
 This will give you a jobe server running on port 4000, which can then be
 tested locally and used by Moodle as explained in the section "Using jobeinabox" below.
 
+## Setting the number of jobe users
+
+By default, Jobe will run up to 8 jobs simultaneously. This is usually a suitable
+value for 8-core systems but if you have more cores available you will probably
+want to raise this number. To do so, exec a shell in the container with a command of the form
+
+    docker exec -it jobe /bin/bash
+
+ and then:
+
+    apt update; apt install nano
+    nano  /var/www/html/jobe/application/config/config.php
+
+Find the line
+
+    $config['jobe_max_users'] = 8;
+
+and change the value from 8 to the number of cores on your machine, or to a higher
+value if you expect to run mainly I/O-bound jobs.
+
+Then re-install Jobe (within the container) with the commands:
+
+    cd /var/www/html/jobe
+    ./install --purge
+
 ### Warnings:
 
 1.  The image is over 1 GB, so may take a long time to start the first
