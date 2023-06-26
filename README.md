@@ -43,7 +43,7 @@ By default, Jobe will run up to 8 jobs simultaneously. This is usually a suitabl
 value for 8-core systems but if you have more cores available you will probably
 want to raise this number. To do so, exec a shell in the container with a command of the form
 
-    docker exec -it jobe /bin/bash
+    docker exec -it jobe bash
 
  and then:
 
@@ -61,6 +61,13 @@ Then re-install Jobe (within the container) with the commands:
 
     cd /var/www/html/jobe
     ./install --purge
+
+## Checking performance
+
+You can check the performance of the container with the command
+
+    docker exec -it jobe /var/www/html/jobe/testsubmit.py --perf
+
 
 ### Warnings:
 
