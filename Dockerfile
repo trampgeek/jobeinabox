@@ -2,6 +2,10 @@
 # With thanks to David Bowes (d.h.bowes@lancaster.ac.uk) who did all the hard work
 # on this originally.
 
+# Build command arguments:
+#    TZ to set timezone. Default Pacific/Auckland
+#    BRANCH to select Jobe branch, either master or development. Default: master
+
 FROM docker.io/ubuntu:22.04
 
 # https://github.com/opencontainers/image-spec/blob/master/annotations.md
@@ -13,6 +17,7 @@ LABEL \
     org.opencontainers.image.source="https://github.com/trampgeek/jobeinabox"
 
 ARG TZ=Pacific/Auckland
+ARG BRANCH=master
 # Set up the (apache) environment variables
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
@@ -40,6 +45,7 @@ RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
         acl \
         apache2 \
         build-essential \
+        libcgroup-dev \
         fp-compiler \
         git \
         libapache2-mod-php \
@@ -70,8 +76,9 @@ RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
     chmod 777 /var/crash && \
     echo '<!DOCTYPE html><html lang="en"><title>Jobe</title><h1>Jobe</h1></html>' > /var/www/html/index.html && \
     git clone https://github.com/trampgeek/jobe.git /var/www/html/jobe && \
-    apache2ctl start && \
     cd /var/www/html/jobe && \
+    git checkout "$BRANCH" && \
+    apache2ctl start && \
     /usr/bin/python3 /var/www/html/jobe/install --max_uid=500 && \
     chown -R ${APACHE_RUN_USER}:${APACHE_RUN_GROUP} /var/www/html && \
     apt-get -y autoremove --purge && \
