@@ -5,7 +5,8 @@
 ![Docker Automated](https://img.shields.io/docker/cloud/automated/trampgeek/jobeinabox.svg)
 ![Docker Build](https://img.shields.io/docker/cloud/build/trampgeek/jobeinabox.svg)
 
-The [Moodle CodeRunner question type plugin](https://moodle.org/plugins/qtype_coderunner) requires a [Jobe server](https://github.com/trampgeek) on which to run student-submitted jobs. [JobeInABox](https://hub.docker.com/r/trampgeek/jobeinabox/) is a container image that provides a basic Jobe server that runs all the standard languages but does not have a mysql server installed so cannot use API-key access. For normal use, that's not a problem - API-key access is relevant only to Jobe servers delivering services to multiple clients.
+The [Moodle CodeRunner question type plugin](https://moodle.org/plugins/qtype_coderunner) requires a [Jobe server](https://github.com/trampgeek) on which to run student-submitted jobs. [JobeInABox](https://hub.docker.com/r/trampgeek/jobeinabox/) is a Docker image that provides a basic Jobe server that runs all the standard languages. For full information on Jobe servers, see the 
+[full Jobe documentation](https://github.com/trampgeek/jobe)
 
 *NOTE: for security and performance reasons it is strongly recommended to run Jobe on a 
 dedicated standalone server, even when running it in a container.*
@@ -49,7 +50,7 @@ want to raise this number. To do so, exec a shell in the container with a comman
     docker exec -it jobe bash
 
  and then:
-
+ but does not have a mysql server installed so cannot use API-key access. For normal use, that's not a problem - API-key access is relevant only to Jobe servers delivering services to multiple client
     apt update; apt install nano
     nano  /var/www/html/jobe/application/config/config.php
 
@@ -120,3 +121,5 @@ To check if there is anything left, enter the command
 
 1.  Rebuild the container regularly to ensures that it is running
     with the latest jobe version and security updates.
+
+

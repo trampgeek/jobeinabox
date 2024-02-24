@@ -43,12 +43,14 @@ RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
         fp-compiler \
         git \
         libapache2-mod-php \
+        nano \
         nodejs \
         octave \
         default-jdk \
         php \
         php-cli \
         php-mbstring \
+        php-intl \
         python3 \
         python3-pip \
         python3-setuptools \
