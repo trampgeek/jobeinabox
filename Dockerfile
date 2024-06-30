@@ -2,7 +2,7 @@
 # With thanks to David Bowes (d.h.bowes@lancaster.ac.uk) who did all the hard work
 # on this originally.
 
-FROM docker.io/ubuntu:22.04
+FROM docker.io/ubuntu:24.04
 
 # https://github.com/opencontainers/image-spec/blob/master/annotations.md
 LABEL \
@@ -54,11 +54,11 @@ RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
         python3 \
         python3-pip \
         python3-setuptools \
+        pylint \
         sqlite3 \
         sudo \
         tzdata \
         unzip && \
-    python3 -m pip install pylint && \
     pylint --reports=no --score=n --generate-rcfile > /etc/pylintrc && \
     ln -sf /proc/self/fd/1 /var/log/apache2/access.log && \
     ln -sf /proc/self/fd/1 /var/log/apache2/error.log && \
@@ -89,3 +89,4 @@ HEALTHCHECK --interval=5m --timeout=2s \
 
 # Start apache
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+docker run -d -p 4000:80 --name jobe
