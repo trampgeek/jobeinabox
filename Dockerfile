@@ -14,12 +14,12 @@ LABEL \
 
 ARG TZ=Pacific/Auckland
 # Set up the (apache) environment variables
-ENV APACHE_RUN_USER www-data
-ENV APACHE_RUN_GROUP www-data
-ENV APACHE_LOG_DIR /var/log/apache2
-ENV APACHE_LOCK_DIR /var/lock/apache2
-ENV APACHE_PID_FILE /var/run/apache2.pid
-ENV LANG C.UTF-8
+ENV APACHE_RUN_USER=www-data
+ENV APACHE_RUN_GROUP=www-data
+ENV APACHE_LOG_DIR=/var/log/apache2
+ENV APACHE_LOCK_DIR=/var/lock/apache2
+ENV APACHE_PID_FILE=/var/run/apache2.pid
+ENV LANG=C.UTF-8
 
 # Copy apache virtual host file for later use
 COPY 000-jobe.conf /
@@ -89,4 +89,3 @@ HEALTHCHECK --interval=5m --timeout=2s \
 
 # Start apache
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
-docker run -d -p 4000:80 --name jobe
