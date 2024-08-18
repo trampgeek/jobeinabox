@@ -83,8 +83,11 @@ RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
 # Expose apache
 EXPOSE 80
 
-# Healthcheck, minimaltest.py should complete within 2 seconds
-HEALTHCHECK --interval=5m --timeout=2s \
+# Healthcheck every minute, minimaltest.py should complete within 2 seconds
+# If you're running docker version 25.0 or later, you could consider
+# changing the following line to
+# HEALTHCHECK --start-period=30s --start-interval=5s --interval=5m --timeout=2s \
+HEALTHCHECK --interval=1m --timeout=2s \
     CMD /usr/bin/python3 /var/www/html/jobe/minimaltest.py || exit 1
 
 # Start apache
