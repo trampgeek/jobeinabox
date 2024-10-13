@@ -26,14 +26,19 @@ COPY 000-jobe.conf /
 # Copy test script
 COPY container-test.sh /
 
+# Mount secrets
 # Set timezone
 # Install extra packages
 # Redirect apache logs to stdout
 # Configure apache
 # Configure php
-# Get and install jobe
+# Get jobe
+# Handle jobe API keys
+# Install jobe
 # Clean up
-RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
+RUN --mount=type=secret,id=api_keys \
+    export API_KEYS=`cat /run/secrets/api_keys | tr '\n' ' '` && \
+    ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
     echo "$TZ" > /etc/timezone && \
     apt-get update && \
     apt-get --no-install-recommends install -yq \
@@ -74,6 +79,10 @@ RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
     git clone https://github.com/trampgeek/jobe.git /var/www/html/jobe && \
     apache2ctl start && \
     cd /var/www/html/jobe && \
+    if [ ! -z "${API_KEYS}" ]; then \
+        sed -i 's/$require_api_keys = false/$require_api_keys = true/' /var/www/html/jobe/app/Config/Jobe.php && \
+        sed -i "s/'2AAA7A.*/$API_KEYS/" /var/www/html/jobe/app/Config/Jobe.php \
+    ; fi && \
     /usr/bin/python3 /var/www/html/jobe/install --max_uid=500 && \
     chown -R ${APACHE_RUN_USER}:${APACHE_RUN_GROUP} /var/www/html && \
     apt-get -y autoremove --purge && \
