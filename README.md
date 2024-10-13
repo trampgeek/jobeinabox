@@ -72,6 +72,28 @@ You can check the performance of the container with the command
 
     docker exec -it jobe /var/www/html/jobe/testsubmit.py --perf
 
+## Using API Keys
+
+You can provid API keys during the image build via the `--secret` option.
+
+The keys can be stored in a separate file, following the format:
+
+```
+'c1425880-2289-4b76-ae29-bcea34997256' => 0,
+'de7970e6-0466-4ce2-a6a4-c1a51363bd03' => 90
+```
+
+You can find more information on API keys in the Jobe documentation.
+
+With the following command the keys stored in a file called `api_keys` in the
+jobeinabox directory are automatically added to `/var/www/html/jobe/app/Config/Jobe.php`
+and the option `$require_api_keys` is set to true.
+
+```
+podman build . -t my/jobeinabox --secret id=api_keys,src=api_keys
+```
+
+If no API keys are provided the configuration remains untouched.
 
 ### Warnings:
 
