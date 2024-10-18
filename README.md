@@ -50,13 +50,12 @@ want to raise this number. To do so, exec a shell in the container with a comman
     docker exec -it jobe bash
 
  and then:
- but does not have a mysql server installed so cannot use API-key access. For normal use, that's not a problem - API-key access is relevant only to Jobe servers delivering services to multiple client
-    apt update; apt install nano
-    nano  /var/www/html/jobe/application/config/config.php
+
+    nano  /var/www/html/jobe/app/Config/Jobe.php
 
 Find the line
 
-    $config['jobe_max_users'] = 8;
+    public int $jobe_max_users = 8;
 
 and change the value from 8 to the number of cores on your machine, or to a higher
 value if you expect to run mainly I/O-bound jobs.
@@ -74,7 +73,7 @@ You can check the performance of the container with the command
 
 ## Using API Keys
 
-You can provid API keys during the image build via the `--secret` option.
+You can provide API keys during the image build via the `--secret` option.
 
 The keys can be stored in a separate file, following the format:
 
@@ -143,5 +142,13 @@ To check if there is anything left, enter the command
 
 1.  Rebuild the container regularly to ensures that it is running
     with the latest jobe version and security updates.
+
+## Change history (recent changes only)
+
+18/10/24:
+ * API key configuration can now be specified during build using Docker's "--secret" functionality (thanks @theLogicJB).
+
+ * Fix broken documentation on changing the number of Jobe servers.
+
 
 
