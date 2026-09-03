@@ -85,7 +85,12 @@ RUN --mount=type=secret,id=api_keys \
         sed -i "s/'2AAA7A.*/$API_KEYS/" /var/www/html/jobe/app/Config/Jobe.php \
     ; fi && \
     /usr/bin/python3 /var/www/html/jobe/install --max_uid=500 && \
-    chown -R ${APACHE_RUN_USER}:${APACHE_RUN_GROUP} /var/www/html && \
+    # install(1) compiles runguard and rmjobedir as root, leaving them root:root
+    # mode 700. www-data runs them as root via sudoers, so it must NOT be able to
+    # overwrite them. Do NOT blanket-chown the tree here - that would regress
+    # them to www-data:www-data. Re-assert the invariant explicitly instead.
+    chown root:root /var/www/html/jobe/runguard/runguard /var/www/html/jobe/runguard/rmjobedir && \
+    chmod 700 /var/www/html/jobe/runguard/runguard /var/www/html/jobe/runguard/rmjobedir && \
     apt-get -y autoremove --purge && \
     apt-get -y clean && \
     rm -rf /var/lib/apt/lists/*

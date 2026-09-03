@@ -163,6 +163,12 @@ To check if there is anything left, enter the command
 
 ## Change history (recent changes only)
 
+3/9/26:
+ * Fix error in build that changed ownership of all files including the critical
+   runguard executable to www-data. If the server was compromised and a user
+   obtained www-data level accessw, that build error allowed them to further 
+   escalate to root.
+   
 8/6/26:
  * Update README.md to include required Moodle security settings (allowed ports,
    disallowed URLs).
