@@ -2,7 +2,7 @@
 # With thanks to David Bowes (d.h.bowes@lancaster.ac.uk) who did all the hard work
 # on this originally.
 
-FROM docker.io/ubuntu:24.04
+FROM docker.io/ubuntu:26.04
 
 # https://github.com/opencontainers/image-spec/blob/master/annotations.md
 LABEL \
@@ -68,7 +68,7 @@ RUN --mount=type=secret,id=api_keys \
     pylint --reports=no --score=n --generate-rcfile > /etc/pylintrc && \
     ln -sf /proc/self/fd/1 /var/log/apache2/access.log && \
     ln -sf /proc/self/fd/1 /var/log/apache2/error.log && \
-    sed -i "s/export LANG=C/export LANG=$LANG/" /etc/apache2/envvars && \
+    sed -i "s/^export LANG=.*/export LANG=$LANG/" /etc/apache2/envvars && \
     sed -i '1 i ServerName localhost' /etc/apache2/apache2.conf && \
     sed -i 's/ServerTokens\ OS/ServerTokens \Prod/g' /etc/apache2/conf-enabled/security.conf && \
     sed -i 's/ServerSignature\ On/ServerSignature \Off/g' /etc/apache2/conf-enabled/security.conf && \
