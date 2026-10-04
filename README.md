@@ -163,6 +163,9 @@ To check if there is anything left, enter the command
 
 ## Change history (recent changes only)
 
+2/10/26
+ * Upgrade base image to Ubuntu 26.04. Brings in OpenJDK 25, Python 3.14, PHP 8.5 among others.
+
 3/9/26:
  * Fix error in build that changed ownership of all files including the critical
    runguard executable to www-data. If the server was compromised and a user
